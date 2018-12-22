@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Isaac - Part 1</title>
+
+	<link rel="stylesheet" href="https://use.typekit.net/nuq4qnf.css">
+	<link rel="stylesheet" href="https://use.typekit.net/nuq4qnf.css">
+	<link rel="stylesheet" href="../../styles.css">
+
+	<script src="../../scripts.js"></script>
+
+	<script type="text/javascript">
+			var v = 250;
+
+		function move_ball() {
+			var p = document.getElementById("disp").value / 100;
+			var l = document.getElementById("part").parentElement.offsetWidth;
+			var w = document.getElementById("part").offsetWidth;
+
+			var disp = p*(l-w)
+			var time = v / disp;
+
+			document.getElementById("part").style.transition = "margin-left " + time + "s ease";
+
+			setTimeout(function () {
+				document.getElementById("part").style.marginLeft = disp+ "px";
+			}, 100);
+			
+
+		}
+
+
+	</script>
+</head>
+<body onload="fade_in()">
+	<div id="main">
+		<div class="vert_center">
+			<div class="particle smooth_left" id="part"></div>
+			
+			<div class="spacer"></div>
+			<div class="slidercontainer">
+				<input type="range" min="0" max="100" value="0" class="slider" id="disp" onchange="move_ball()"/>
+			</div>
+			<div class="small">displacement</div>
+		</div>
+	</div>	
+</body>
+</html>

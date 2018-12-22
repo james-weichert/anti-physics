@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Isaac - Part 3</title>
+
+	<link rel="stylesheet" href="https://use.typekit.net/nuq4qnf.css">
+	<link rel="stylesheet" href="https://use.typekit.net/nuq4qnf.css">
+	<link rel="stylesheet" href="../../styles.css">
+
+
+	<script src="../../scripts.js"></script>
+
+	<style type="text/css">
+		#planet_mass {
+			position: absolute;
+			left: 0;
+			top: 0;
+
+			margin-left: -5vw;
+			margin-top: -5vw;
+		}
+	</style>
+
+	<script type="text/javascript">
+		var g = 10
+
+		function create_particle(event) {
+			var x = event.clientX;
+			var y = event.clientY;
+
+			var d = document.getElementById("planet_mass").offsetWidth;
+			var r = document.getElementById("planet").offsetWidth;
+
+			var w = window.innerWidth;
+			var h = window.innerHeight;
+
+			var ax = x - w/2;
+			var ay = -(y - h/2);
+
+			var bx = 50;
+			var by = 0;
+
+			var dot = ax*bx;
+			var a_mag = Math.sqrt(Math.pow(ax,2) + Math.pow(ay,2))
+			var b_mag = bx;
+
+			var cos_theta = dot/(a_mag*b_mag);
+			var theta = Math.acos(cos_theta);
+
+			if(ay < 0) {
+				theta = 2*Math.PI - theta;
+			}
+
+			//alert("x: " + x + " | circle: " + (w/2 + r/2*Math.cos(theta)) + " | mass: " + (x - d/2*Math.cos(2*Math.PI - theta)));
+			if(theta >= 0 && theta < Math.PI/2 && (w/2 + r/2*Math.cos(theta)) > (x - d/2*Math.cos(2*Math.PI - theta))) {
+				document.getElementById("planet_mass").style.marginLeft = "-500px";
+				document.getElementById("planet_mass").style.marginTop = "-500px";
+			} else if (theta >= Math.PI/2 && theta < 1.5*Math.PI && (w/2 + r/2*Math.cos(theta)) < (x - d/2*Math.cos(2*Math.PI - theta))) {
+				document.getElementById("planet_mass").style.marginLeft = "-500px";
+				document.getElementById("planet_mass").style.marginTop = "-500px";
+			} else if (theta >= 1.5*Math.PI && theta < 2*Math.PI && (w/2 + r/2*Math.cos(theta)) > (x - d/2*Math.cos(2*Math.PI - theta))) {
+				document.getElementById("planet_mass").style.marginLeft = "-500px";
+				document.getElementById("planet_mass").style.marginTop = "-500px";
+			} else {
+				document.getElementById("planet_mass").style.marginLeft = x - (d/2) + "px";
+				document.getElementById("planet_mass").style.marginTop = y - (d/2) + "px";
+			}
+
+			
+			
+		}
+	</script>
+</head>
+<body onload="fade_in()">
+	<div class="full_screen" onclick="create_particle(event)"></div>
+	<div class="planet_middle grey" id="planet"></div>
+
+	<div class="particle" id="planet_mass"></div>
+</body>
+</html>
